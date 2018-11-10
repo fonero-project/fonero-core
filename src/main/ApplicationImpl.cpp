@@ -1,8 +1,8 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#define STELLAR_CORE_REAL_TIMER_FOR_CERTAIN_NOT_JUST_VIRTUAL_TIME
+#define FONERO_CORE_REAL_TIMER_FOR_CERTAIN_NOT_JUST_VIRTUAL_TIME
 #include "ApplicationImpl.h"
 
 // ASIO is somewhat particular about when it gets included -- it wants to be the
@@ -21,7 +21,7 @@
 #include "invariant/AccountSubEntriesCountIsValid.h"
 #include "invariant/BucketListIsConsistentWithDatabase.h"
 #include "invariant/CacheIsConsistentWithDatabase.h"
-#include "invariant/ConservationOfLumens.h"
+#include "invariant/ConservationOfFoneros.h"
 #include "invariant/InvariantManager.h"
 #include "invariant/LedgerEntryIsValid.h"
 #include "invariant/LiabilitiesMatchOffers.h"
@@ -30,7 +30,7 @@
 #include "main/ExternalQueue.h"
 #include "main/Maintainer.h"
 #include "main/NtpSynchronizationChecker.h"
-#include "main/StellarCoreVersion.h"
+#include "main/FoneroCoreVersion.h"
 #include "medida/counter.h"
 #include "medida/meter.h"
 #include "medida/metrics_registry.h"
@@ -53,7 +53,7 @@
 
 static const int SHUTDOWN_DELAY_SECONDS = 1;
 
-namespace stellar
+namespace fonero
 {
 
 ApplicationImpl::ApplicationImpl(VirtualClock& clock, Config const& cfg)
@@ -125,7 +125,7 @@ ApplicationImpl::initialize()
     BucketListIsConsistentWithDatabase::registerInvariant(*this);
     AccountSubEntriesCountIsValid::registerInvariant(*this);
     CacheIsConsistentWithDatabase::registerInvariant(*this);
-    ConservationOfLumens::registerInvariant(*this);
+    ConservationOfFoneros::registerInvariant(*this);
     LedgerEntryIsValid::registerInvariant(*this);
     LiabilitiesMatchOffers::registerInvariant(*this);
     enableInvariantsFromConfig();
@@ -225,7 +225,7 @@ ApplicationImpl::getJsonInfo()
 
     if (getConfig().UNSAFE_QUORUM)
         info["UNSAFE_QUORUM"] = "UNSAFE QUORUM ALLOWED";
-    info["build"] = STELLAR_CORE_VERSION;
+    info["build"] = FONERO_CORE_VERSION;
     info["protocol_version"] = getConfig().LEDGER_PROTOCOL_VERSION;
     info["state"] = getStateHuman();
     info["startedOn"] = VirtualClock::pointToISOString(mStartedOn);

@@ -1,18 +1,18 @@
-[![Build Status](https://travis-ci.org/stellar/stellar-core.svg?branch=auto)](https://travis-ci.org/stellar/stellar-core)
+[![Build Status](https://travis-ci.org/fonero/fonero-core.svg?branch=auto)](https://travis-ci.org/fonero/fonero-core)
 
 
-# stellar-core
+# fonero-core
 
-Stellar-core is a replicated state machine that maintains a local copy of a cryptographic ledger and processes transactions against it, in consensus with a set of peers.
-It implements the [Stellar Consensus Protocol](https://github.com/stellar/stellar-core/blob/master/src/scp/readme.md), a _federated_ consensus protocol.
+Fonero-core is a replicated state machine that maintains a local copy of a cryptographic ledger and processes transactions against it, in consensus with a set of peers.
+It implements the [Fonero Consensus Protocol](https://github.com/fonero-project/fonero-core/blob/master/src/scp/readme.md), a _federated_ consensus protocol.
 It is written in C++14 and runs on Linux, OSX and Windows.
-Learn more by reading the [overview document](https://github.com/stellar/stellar-core/blob/master/docs/readme.md).
+Learn more by reading the [overview document](https://github.com/fonero-project/fonero-core/blob/master/docs/readme.md).
 
 # Documentation
 
 Documentation of the code's layout and abstractions, as well as for the
 functionality available, can be found in
-[`./docs`](https://github.com/stellar/stellar-core/tree/master/docs).
+[`./docs`](https://github.com/fonero-project/fonero-core/tree/master/docs).
 
 # Installation
 
@@ -25,26 +25,26 @@ See [Contributing](./CONTRIBUTING.md)
 # Running tests
 
 run tests with:
-  `src/stellar-core --test`
+  `src/fonero-core --test`
 
 run one test with:
-  `src/stellar-core --test  testName`
+  `src/fonero-core --test  testName`
 
 run one test category with:
-  `src/stellar-core --test '[categoryName]'`
+  `src/fonero-core --test '[categoryName]'`
 
 Categories (or tags) can be combined: AND-ed (by juxtaposition) or OR-ed (by comma-listing).
 
 Tests tagged as [.] or [hide] are not part of the default test test.
 
 supported test options can be seen with
-  `src/stellar-core --test --help`
+  `src/fonero-core --test --help`
 
 display tests timing information:
-  `src/stellar-core --test -d yes '[categoryName]'`
+  `src/fonero-core --test -d yes '[categoryName]'`
 
 xml test output (includes nested section information):
-  `src/stellar-core --test -r xml '[categoryName]'`
+  `src/fonero-core --test -r xml '[categoryName]'`
 
 # Running tests against postgreSQL
 
@@ -84,8 +84,8 @@ will partition the history tests into 4 parts then run parts 0, 1, and 3.
 We adopt the convention of tagging a stress-test for subsystem foo as [foo-stress][stress][hide].
 
 Then, running
-* `stellar-core --test [stress]` will run all the stress tests,
-* `stellar-core --test [foo-stress]` will run the stress tests for subsystem foo alone, and
-* neither `stellar-core --test` nor `stellar-core --test [foo]` will run stress tests.
+* `fonero-core --test [stress]` will run all the stress tests,
+* `fonero-core --test [foo-stress]` will run the stress tests for subsystem foo alone, and
+* neither `fonero-core --test` nor `fonero-core --test [foo]` will run stress tests.
 
 

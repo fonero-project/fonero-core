@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,7 +20,7 @@
 using namespace soci;
 using namespace std;
 
-namespace stellar
+namespace fonero
 {
 const char* AccountFrame::kSQLCreateStatement1 =
     "CREATE TABLE accounts"
@@ -135,13 +135,13 @@ getSellingLiabilities(AccountEntry const& acc, LedgerManager const& lm)
 int64_t
 AccountFrame::getBuyingLiabilities(LedgerManager const& lm) const
 {
-    return stellar::getBuyingLiabilities(mAccountEntry, lm);
+    return fonero::getBuyingLiabilities(mAccountEntry, lm);
 }
 
 int64_t
 AccountFrame::getSellingLiabilities(LedgerManager const& lm) const
 {
-    return stellar::getSellingLiabilities(mAccountEntry, lm);
+    return fonero::getSellingLiabilities(mAccountEntry, lm);
 }
 
 bool
@@ -158,7 +158,7 @@ AccountFrame::addBuyingLiabilities(int64_t delta, LedgerManager const& lm)
                              : mAccountEntry.ext.v1().liabilities.buying;
 
     int64_t maxLiabilities = INT64_MAX - getBalance();
-    bool res = stellar::addBalance(buyingLiab, delta, maxLiabilities);
+    bool res = fonero::addBalance(buyingLiab, delta, maxLiabilities);
     if (res)
     {
         if (mAccountEntry.ext.v() == 0)
@@ -190,7 +190,7 @@ AccountFrame::addSellingLiabilities(int64_t delta, LedgerManager const& lm)
         return false;
     }
 
-    bool res = stellar::addBalance(sellingLiab, delta, maxLiabilities);
+    bool res = fonero::addBalance(sellingLiab, delta, maxLiabilities);
     if (res)
     {
         if (mAccountEntry.ext.v() == 0)
@@ -212,7 +212,7 @@ AccountFrame::addBalance(int64_t delta, LedgerManager const& lm)
     }
 
     auto newBalance = mAccountEntry.balance;
-    if (!stellar::addBalance(newBalance, delta))
+    if (!fonero::addBalance(newBalance, delta))
     {
         return false;
     }

@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -34,7 +34,7 @@
 
 using namespace std;
 
-namespace stellar
+namespace fonero
 {
 
 std::unique_ptr<Herder>
@@ -165,7 +165,7 @@ findOrAdd(HerderImpl::AccountTxMap& acc, AccountID const& aid)
 }
 
 void
-HerderImpl::valueExternalized(uint64 slotIndex, StellarValue const& value)
+HerderImpl::valueExternalized(uint64 slotIndex, FoneroValue const& value)
 {
     // record metrics
     getHerderSCPDriver().recordSCPExecutionMetrics(slotIndex);
@@ -251,7 +251,7 @@ HerderImpl::broadcast(SCPEnvelope const& e)
 {
     if (!mApp.getConfig().MANUAL_CLOSE)
     {
-        StellarMessage m;
+        FoneroMessage m;
         m.type(SCP_MESSAGE);
         m.envelope() = e;
 
@@ -472,7 +472,7 @@ HerderImpl::sendSCPStateToPeer(uint32 ledgerSeq, Peer::pointer peer)
 
             for (auto const& e : envelopes)
             {
-                StellarMessage m;
+                FoneroMessage m;
                 m.type(SCP_MESSAGE);
                 m.envelope() = e;
                 peer->sendMessage(m);
@@ -772,7 +772,7 @@ HerderImpl::triggerNextLedger(uint32_t ledgerSeqToTrigger)
         nextCloseTime = lcl.header.scpValue.closeTime + 1;
     }
 
-    StellarValue newProposedValue(txSetHash, nextCloseTime, emptyUpgradeSteps,
+    FoneroValue newProposedValue(txSetHash, nextCloseTime, emptyUpgradeSteps,
                                   0);
 
     // see if we need to include some upgrades
@@ -1085,7 +1085,7 @@ HerderImpl::updatePendingTransactions(
         }
         for (auto tx : toBroadcast.sortForApply())
         {
-            auto msg = tx->toStellarMessage();
+            auto msg = tx->toFoneroMessage();
             mApp.getOverlayManager().broadcastMessage(msg);
         }
     }

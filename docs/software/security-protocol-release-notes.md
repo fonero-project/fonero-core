@@ -4,24 +4,24 @@ title: Security and Protocol release notes
 
 # Purpose of this document
 
-This document describes changes to the Stellar protocol as well as other changes made to address security issues.
+This document describes changes to the Fonero protocol as well as other changes made to address security issues.
 
 It is organized as a reverse chronological timeline of releases.
 
 ## Protocol updates
 
 * Changes to SCP.
-* Changes to the Stellar Protocol (anything that modifies how the distributed ledger functions, including historical data).
+* Changes to the Fonero Protocol (anything that modifies how the distributed ledger functions, including historical data).
 
 ## Security issues
 
 * DDoS.
 * Crashes (that could lead to remote code execution).
-* Other attacks that can be exploited (inside or outside of the Stellar protocol).
+* Other attacks that can be exploited (inside or outside of the Fonero protocol).
 
 ## Goals for this document
 
-* have a summary view of changes that affect the code base (stellar-core has to be able to replay all ledgers generated since genesis on the Stellar public network).
+* have a summary view of changes that affect the code base (fonero-core has to be able to replay all ledgers generated since genesis on the Fonero public network).
 * drive transparency on issues that affected the network in the past as well as their impact.
 
 ## Security issues disclosure policy
@@ -31,8 +31,8 @@ It is organized as a reverse chronological timeline of releases.
 The goal is work with the larger security community on a responsible disclosure model.
 
 It then follows that:
-* this document is not where security disclosures are made, instead follow the process outlined in [Stellar's bug bounty program](https://www.stellar.org/bug-bounty-program/) as a way to triage and respond to issues.
-* issues are reflected in this document 30 days after release of the version of Stellar core containing fixes for the issues.
+* this document is not where security disclosures are made, instead follow the process outlined in [Fonero's bug bounty program](https://www.fonero.org/bug-bounty-program/) as a way to triage and respond to issues.
+* issues are reflected in this document 30 days after release of the version of Fonero core containing fixes for the issues.
 
 # Format of each report
 
@@ -86,10 +86,10 @@ It then follows that:
 
 * `Ledger` - security - overflow in base reserve computation would allow certain operation to reduce the balance below reserve.
     * exploited: unknown
-        * while it was possible to take the balance below reserve, this would simply make accounts unusable until more Lumens were sent to the account.
+        * while it was possible to take the balance below reserve, this would simply make accounts unusable until more Foneros were sent to the account.
     * mitigation: code fix
 
- * `Ledger` - protocol - `manageOffer` now computes the amount of Lumens that can be sold as if the offer was created
+ * `Ledger` - protocol - `manageOffer` now computes the amount of Foneros that can be sold as if the offer was created
 
 * `Ledger` - protocol - make `BASE_RESERVE` configurable
 
@@ -99,12 +99,12 @@ It then follows that:
 
 ## v0.6.2 (2017-04-30)
 
-* `Ledger` - security - invalid use of cached data could lead to lumen creation (double spend) or destruction
+* `Ledger` - security - invalid use of cached data could lead to fonero creation (double spend) or destruction
     * exploited: yes
-        * rogue transactions caused new Lumens to be created, not accounted for in total coins
+        * rogue transactions caused new Foneros to be created, not accounted for in total coins
     * mitigation:
         * code fix
-        * in order to restore the ledger to its expected number of coins, the foundation burned Lumens using one of the bugs fixed in this release (`pathPaymentOp`), practically speaking this ended up being equivalent to a forced distribution of Lumens by the foundation.
+        * in order to restore the ledger to its expected number of coins, the foundation burned Foneros using one of the bugs fixed in this release (`pathPaymentOp`), practically speaking this ended up being equivalent to a forced distribution of Foneros by the foundation.
         * invariant for total coins implemented
 
 * `Ledger` - protocol - updated protocol version to 8 (2017-04-26)
@@ -123,9 +123,9 @@ It then follows that:
 
 ## v0.6.1c (not widely released - 2017-04-08)
 
-* `Ledger` - security - merge account could be called on an account already merged in the same ledger, causing the Lumens balance of the doubly merged account to be credited multiple times into the destination account
+* `Ledger` - security - merge account could be called on an account already merged in the same ledger, causing the Foneros balance of the doubly merged account to be credited multiple times into the destination account
     * exploited: yes
-        * rogue transactions caused new Lumens to be created, not accounted for in total coins
+        * rogue transactions caused new Foneros to be created, not accounted for in total coins
     * mitigation:
         * another minimal code fix scoped to merge account was implemented to stop the updated pattern of transactions exploiting the bug while working on complete fix
         * additional monitoring of network activity
@@ -136,9 +136,9 @@ It then follows that:
 
 ## v0.6.1b (not widely released - 2017-04-06)
 
-* `Ledger` - security - merge account could be called on an account already merged in the same ledger, causing the Lumens balance of the doubly merged account to be credited multiple times into the destination account
+* `Ledger` - security - merge account could be called on an account already merged in the same ledger, causing the Foneros balance of the doubly merged account to be credited multiple times into the destination account
     * exploited: yes
-        * rogue transactions caused new Lumens to be created, not accounted for in total coins
+        * rogue transactions caused new Foneros to be created, not accounted for in total coins
     * mitigation:
         * minimal code fix implemented to stop known pattern of transactions exploiting the bug
         * additional monitoring of network activity

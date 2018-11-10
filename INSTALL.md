@@ -1,6 +1,6 @@
 Installation Instructions
 ==================
-These are intructions for building stellar-core from source. For a potentially quicker set up we also have stellar-core in a docker container: https://github.com/stellar/docker-stellar-core-horizon
+These are intructions for building fonero-core from source. For a potentially quicker set up we also have fonero-core in a docker container: https://github.com/fonero-project/docker-fonero-core-horizon
 
 ## Picking a version to run
 
@@ -62,8 +62,8 @@ See [INSTALL-Windows.md](INSTALL-Windows.md)
 
 ## Basic Installation
 
-- `git clone https://github.com/stellar/stellar-core.git`
-- `cd stellar-core`
+- `git clone https://github.com/fonero-project/fonero-core.git`
+- `cd fonero-core`
 - `git submodule init`
 - `git submodule update`
 - Type `./autogen.sh`.

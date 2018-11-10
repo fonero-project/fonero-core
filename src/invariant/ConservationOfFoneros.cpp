@@ -1,35 +1,35 @@
-// Copyright 2017 Stellar Development Foundation and contributors. Licensed
+// Copyright 2017 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#include "invariant/ConservationOfLumens.h"
+#include "invariant/ConservationOfFoneros.h"
 #include "invariant/InvariantManager.h"
 #include "ledger/LedgerDelta.h"
 #include "lib/util/format.h"
 #include "main/Application.h"
 #include <numeric>
 
-namespace stellar
+namespace fonero
 {
 
-ConservationOfLumens::ConservationOfLumens() : Invariant(false)
+ConservationOfFoneros::ConservationOfFoneros() : Invariant(false)
 {
 }
 
 std::shared_ptr<Invariant>
-ConservationOfLumens::registerInvariant(Application& app)
+ConservationOfFoneros::registerInvariant(Application& app)
 {
-    return app.getInvariantManager().registerInvariant<ConservationOfLumens>();
+    return app.getInvariantManager().registerInvariant<ConservationOfFoneros>();
 }
 
 std::string
-ConservationOfLumens::getName() const
+ConservationOfFoneros::getName() const
 {
-    return "ConservationOfLumens";
+    return "ConservationOfFoneros";
 }
 
 int64_t
-ConservationOfLumens::calculateDeltaBalance(LedgerEntry const* current,
+ConservationOfFoneros::calculateDeltaBalance(LedgerEntry const* current,
                                             LedgerEntry const* previous) const
 {
     assert(current || previous);
@@ -43,7 +43,7 @@ ConservationOfLumens::calculateDeltaBalance(LedgerEntry const* current,
 }
 
 std::string
-ConservationOfLumens::checkOnOperationApply(Operation const& operation,
+ConservationOfFoneros::checkOnOperationApply(Operation const& operation,
                                             OperationResult const& result,
                                             LedgerDelta const& delta)
 {

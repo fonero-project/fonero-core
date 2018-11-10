@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,8 +17,8 @@
 #include "util/Logging.h"
 #include "util/Timer.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace fonero;
+using namespace fonero::txtest;
 
 // Merging when you are holding credit
 // Merging when others are holding your credit
@@ -469,13 +469,13 @@ TEST_CASE("merge", "[tx][merge]")
             {
                 for_all_versions(*app, [&] {
                     gateway.pay(a1, usd, trustLineBalance);
-                    auto xlm = makeNativeAsset();
+                    auto fno = makeNativeAsset();
                     auto curIssued = a1.asset("CUR1");
 
                     const Price somePrice(3, 2);
                     for (int i = 0; i < 4; i++)
                     {
-                        a1.manageOffer(0, xlm, curIssued, somePrice, 100);
+                        a1.manageOffer(0, fno, curIssued, somePrice, 100);
                     }
                     REQUIRE_THROWS_AS(a1.merge(b1),
                                       ex_ACCOUNT_MERGE_HAS_SUB_ENTRIES);

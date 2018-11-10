@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -61,7 +61,7 @@ using std::placeholders::_2;
 using std::placeholders::_3;
 using namespace std;
 
-namespace stellar
+namespace fonero
 {
 
 const uint32_t LedgerManager::GENESIS_LEDGER_SEQ = 1;
@@ -400,7 +400,7 @@ LedgerManagerImpl::valueExternalized(LedgerCloseData const& ledgerData)
         << "[seq=" << ledgerData.getLedgerSeq()
         << ", prev=" << hexAbbrev(ledgerData.getTxSet()->previousLedgerHash())
         << ", tx_count=" << ledgerData.getTxSet()->size()
-        << ", sv: " << stellarValueToString(ledgerData.getValue()) << "]";
+        << ", sv: " << foneroValueToString(ledgerData.getValue()) << "]";
 
     auto st = getState();
     switch (st)
@@ -753,7 +753,7 @@ LedgerManagerImpl::applyBufferedLedgers()
             << "[seq=" << lcd.getLedgerSeq()
             << ", prev=" << hexAbbrev(lcd.getTxSet()->previousLedgerHash())
             << ", tx_count=" << lcd.getTxSet()->size()
-            << ", sv: " << stellarValueToString(lcd.getValue()) << "]";
+            << ", sv: " << foneroValueToString(lcd.getValue()) << "]";
         closeLedger(lcd);
 
         applyBufferedLedgers();

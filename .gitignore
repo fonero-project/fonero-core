@@ -31,7 +31,7 @@
 
 /INSTALL
 
-/src/main/StellarCoreVersion.cpp
+/src/main/FoneroCoreVersion.cpp
 /src/testdata
 /src/xdr/*.h
 /Makefile
@@ -39,7 +39,7 @@
 /aclocal.m4
 /autom4te.cache
 /build
-/src/stellar-core
+/src/fonero-core
 /buckets
 /compile
 /config.h
@@ -59,8 +59,8 @@
 /test-driver
 /stamp-h1
 /ylwrap
-/docs/stellar-core.1
-/docs/stellar-core.1.in
+/docs/fonero-core.1
+/docs/fonero-core.1.in
 /src/Makefile
 /src/Makefile.in
 /lib/Makefile
@@ -70,7 +70,7 @@
 /lib/lib.mk
 
 # test output
-/stellar-core-test-*
+/fonero-core-test-*
 /fuzz-findings/
 /my-history/
 

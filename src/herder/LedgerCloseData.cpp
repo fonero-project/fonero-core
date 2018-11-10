@@ -10,11 +10,11 @@
 
 using namespace std;
 
-namespace stellar
+namespace fonero
 {
 
 LedgerCloseData::LedgerCloseData(uint32_t ledgerSeq, TxSetFramePtr txSet,
-                                 StellarValue const& v)
+                                 FoneroValue const& v)
     : mLedgerSeq(ledgerSeq), mTxSet(txSet), mValue(v)
 {
     Value x;
@@ -24,7 +24,7 @@ LedgerCloseData::LedgerCloseData(uint32_t ledgerSeq, TxSetFramePtr txSet,
 }
 
 std::string
-stellarValueToString(StellarValue const& sv)
+foneroValueToString(FoneroValue const& sv)
 {
     std::stringstream res;
 

@@ -30,7 +30,7 @@ extern "C" {
 
 using namespace std::placeholders;
 
-namespace stellar
+namespace fonero
 {
 
 const char* signtxn_network_id;
@@ -281,10 +281,10 @@ signtxn(std::string const& filename, bool base64)
     try
     {
         if (!signtxn_network_id)
-            signtxn_network_id = getenv("STELLAR_NETWORK_ID");
+            signtxn_network_id = getenv("FONERO_NETWORK_ID");
         if (!signtxn_network_id)
             throw std::runtime_error("missing --netid argument or "
-                                     "STELLAR_NETWORK_ID environment variable");
+                                     "FONERO_NETWORK_ID environment variable");
 
         const bool txn_stdin = filename == "-" || filename.empty();
 

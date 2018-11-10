@@ -1,20 +1,17 @@
 # Before creating an issue
-  * check the [documentation](https://www.stellar.org/developers/)
-  * ask for help
-    * There is a [Stellar Stack Exchange](https://stellar.stackexchange.com/)
-    * For more general questions, discuss with [the community](https://www.stellar.org/community/) (Slack, forums, Reddit, ...)
+  * check the [documentation](https://www.fonero.org)
   * check existing and closed issues (you may have to remove the `is:open` filter)
     * check that the version that you are running is newer than the one with the fix
     * re-open an old issue that is supposed to be fixed; be sure to include additional details
 
-Issues opened here are to report actual problems with stellar-core; any other issues (general questions, issues unrelated to stellar-core) will be closed (sorry - we have only a small community of people that manage issues).
+Issues opened here are to report actual problems with fonero-core; any other issues (general questions, issues unrelated to fonero-core) will be closed (sorry - we have only a small community of people that manage issues).
 
 ## protocol changes
 Note: a special category of issues are `protocol` related issues.
 
 Those are typically requests to modify how the core protocol works (adding a new operation, changing the way transactions work, etc).
 
-As stellar-core just implements the protocol, changes in the specification of the protocol has to be done via the [protocol repository](https://github.com/stellar/stellar-protocol/issues).
+As fonero-core just implements the protocol, changes in the specification of the protocol has to be done via the [protocol repository](https://github.com/fonero-project/fonero-protocol/issues).
 
 
 # Issue type
@@ -22,7 +19,7 @@ As stellar-core just implements the protocol, changes in the specification of th
 
 # Version found
   * git hash of the version you're running `git rev-parse HEAD`
-  * version returned by `./stellar-core --version`
+  * version returned by `./fonero-core --version`
 
 # Your environment and setup
   * Operating System name and version (usually `uname -a`)

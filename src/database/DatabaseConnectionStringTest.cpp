@@ -1,4 +1,4 @@
-// Copyright 2017 Stellar Development Foundation and contributors. Licensed
+// Copyright 2017 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -6,7 +6,7 @@
 #include "lib/catch.hpp"
 #include <soci.h>
 
-using namespace stellar;
+using namespace fonero;
 
 TEST_CASE("remove password from database connection string",
           "[db][dbconnectionstring]")
@@ -19,15 +19,15 @@ TEST_CASE("remove password from database connection string",
     SECTION("password is removed if first")
     {
         REQUIRE(removePasswordFromConnectionString(
-                    R"(postgresql://password=abc dbname=stellar)") ==
-                R"(postgresql://password=******** dbname=stellar)");
+                    R"(postgresql://password=abc dbname=fonero)") ==
+                R"(postgresql://password=******** dbname=fonero)");
     }
 
     SECTION("password is removed if second")
     {
         REQUIRE(removePasswordFromConnectionString(
-                    R"(postgresql://dbname=stellar password=dbname)") ==
-                R"(postgresql://dbname=stellar password=********)");
+                    R"(postgresql://dbname=fonero password=dbname)") ==
+                R"(postgresql://dbname=fonero password=********)");
     }
 
     SECTION("database can be named password")
@@ -41,72 +41,72 @@ TEST_CASE("remove password from database connection string",
     {
         REQUIRE(
             removePasswordFromConnectionString(
-                R"(postgresql://dbname=stellar password='quoted password')") ==
-            R"(postgresql://dbname=stellar password=********)");
+                R"(postgresql://dbname=fonero password='quoted password')") ==
+            R"(postgresql://dbname=fonero password=********)");
     }
 
     SECTION("quoted password with quote is removed")
     {
         REQUIRE(
             removePasswordFromConnectionString(
-                R"(postgresql://dbname=stellar password='quoted \' password')") ==
-            R"(postgresql://dbname=stellar password=********)");
+                R"(postgresql://dbname=fonero password='quoted \' password')") ==
+            R"(postgresql://dbname=fonero password=********)");
     }
 
     SECTION("quoted password with backslash is removed")
     {
         REQUIRE(
             removePasswordFromConnectionString(
-                R"(postgresql://dbname=stellar password='quoted \\ password')") ==
-            R"(postgresql://dbname=stellar password=********)");
+                R"(postgresql://dbname=fonero password='quoted \\ password')") ==
+            R"(postgresql://dbname=fonero password=********)");
     }
 
     SECTION("quoted password with backslash and quote is removed")
     {
         REQUIRE(
             removePasswordFromConnectionString(
-                R"(postgresql://dbname=stellar password='quoted \\ password')") ==
-            R"(postgresql://dbname=stellar password=********)");
+                R"(postgresql://dbname=fonero password='quoted \\ password')") ==
+            R"(postgresql://dbname=fonero password=********)");
     }
 
     SECTION("parameters after password remain unchanged")
     {
         REQUIRE(
             removePasswordFromConnectionString(
-                R"(postgresql://dbname=stellar password='quoted \\ password' performance='as fast as possible')") ==
-            R"(postgresql://dbname=stellar password=******** performance='as fast as possible')");
+                R"(postgresql://dbname=fonero password='quoted \\ password' performance='as fast as possible')") ==
+            R"(postgresql://dbname=fonero password=******** performance='as fast as possible')");
     }
 
     SECTION("dbname can be quored")
     {
         REQUIRE(
             removePasswordFromConnectionString(
-                R"(postgresql://dbname='stellar with spaces' password='quoted \\ password' performance='as fast as possible')") ==
-            R"(postgresql://dbname='stellar with spaces' password=******** performance='as fast as possible')");
+                R"(postgresql://dbname='fonero with spaces' password='quoted \\ password' performance='as fast as possible')") ==
+            R"(postgresql://dbname='fonero with spaces' password=******** performance='as fast as possible')");
     }
 
     SECTION("spaces before equals are accepted")
     {
         REQUIRE(
             removePasswordFromConnectionString(
-                R"(postgresql://dbname ='stellar with spaces' password ='quoted \\ password' performance ='as fast as possible')") ==
-            R"(postgresql://dbname ='stellar with spaces' password =******** performance ='as fast as possible')");
+                R"(postgresql://dbname ='fonero with spaces' password ='quoted \\ password' performance ='as fast as possible')") ==
+            R"(postgresql://dbname ='fonero with spaces' password =******** performance ='as fast as possible')");
     }
 
     SECTION("spaces after equals are accepted")
     {
         REQUIRE(
             removePasswordFromConnectionString(
-                R"(postgresql://dbname= 'stellar with spaces' password= 'quoted \\ password' performance= 'as fast as possible')") ==
-            R"(postgresql://dbname= 'stellar with spaces' password= ******** performance= 'as fast as possible')");
+                R"(postgresql://dbname= 'fonero with spaces' password= 'quoted \\ password' performance= 'as fast as possible')") ==
+            R"(postgresql://dbname= 'fonero with spaces' password= ******** performance= 'as fast as possible')");
     }
 
     SECTION("spaces around equals are accepted")
     {
         REQUIRE(
             removePasswordFromConnectionString(
-                R"(postgresql://dbname = 'stellar with spaces' password = 'quoted \\ password' performance = 'as fast as possible')") ==
-            R"(postgresql://dbname = 'stellar with spaces' password = ******** performance = 'as fast as possible')");
+                R"(postgresql://dbname = 'fonero with spaces' password = 'quoted \\ password' performance = 'as fast as possible')") ==
+            R"(postgresql://dbname = 'fonero with spaces' password = ******** performance = 'as fast as possible')");
     }
 
     SECTION(

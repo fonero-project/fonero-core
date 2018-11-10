@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -19,14 +19,14 @@
 #include "util/Logging.h"
 #include "util/Timer.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace fonero;
+using namespace fonero::txtest;
 
-// *XLM Payment
+// *FNO Payment
 // *Credit Payment
-// XLM -> Credit Payment
-// Credit -> XLM Payment
-// Credit -> XLM -> Credit Payment
+// FNO -> Credit Payment
+// Credit -> FNO Payment
+// Credit -> FNO -> Credit Payment
 // Credit -> Credit -> Credit -> Credit Payment
 // path payment where there isn't enough in the path
 // path payment with a transfer rate
@@ -41,7 +41,7 @@ TEST_CASE("payment", "[tx][payment]")
     // set up world
     auto root = TestAccount::createRoot(*app);
 
-    Asset xlm;
+    Asset fno;
 
     int64_t txfee = app->getLedgerManager().getTxFee();
 
@@ -254,7 +254,7 @@ TEST_CASE("payment", "[tx][payment]")
         });
     }
 
-    SECTION("send XLM to an existing account")
+    SECTION("send FNO to an existing account")
     {
         for_all_versions(*app, [&] {
             root.pay(a1, morePayment);
@@ -271,7 +271,7 @@ TEST_CASE("payment", "[tx][payment]")
         });
     }
 
-    SECTION("send XLM to a new account (no destination)")
+    SECTION("send FNO to a new account (no destination)")
     {
         for_all_versions(*app, [&] {
             REQUIRE_THROWS_AS(root.pay(getAccount("B").getPublicKey(),
@@ -907,8 +907,8 @@ TEST_CASE("payment", "[tx][payment]")
 
         auto tx = sourceAccount.tx({
             createSource.op(createAccount(createDestination, create1Amount)),
-            createDestination.op(pathPayment(payDestination, xlm, payAmount,
-                                             xlm, payAmount, {})),
+            createDestination.op(pathPayment(payDestination, fno, payAmount,
+                                             fno, payAmount, {})),
             payDestination.op(accountMerge(createSource)),
             createSource.op(createAccount(payDestination, create2Amount)),
         });
@@ -1788,7 +1788,7 @@ TEST_CASE("payment", "[tx][payment]")
 
             TestMarket market(*app);
             auto offer = market.requireChangesWithOffer({}, [&] {
-                return market.addOffer(a1, {idr, xlm, Price{1, 1}, 50});
+                return market.addOffer(a1, {idr, fno, Price{1, 1}, 50});
             });
 
             for_versions_to(9, *app, [&] { a1.pay(gateway, idr, 51); });
@@ -1806,7 +1806,7 @@ TEST_CASE("payment", "[tx][payment]")
 
             TestMarket market(*app);
             auto offer = market.requireChangesWithOffer({}, [&] {
-                return market.addOffer(a1, {xlm, idr, Price{1, 1}, 50});
+                return market.addOffer(a1, {fno, idr, Price{1, 1}, 50});
             });
 
             for_versions_to(9, *app, [&] { gateway.pay(a1, idr, 51); });

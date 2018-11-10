@@ -1,7 +1,7 @@
 
 #include "herder/Herder.h"
 
-namespace stellar
+namespace fonero
 {
 
 std::chrono::seconds const Herder::EXP_LEDGER_TIMESPAN_SECONDS(5);

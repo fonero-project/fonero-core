@@ -1,6 +1,6 @@
 #pragma once
 
-// Copyright 2017 Stellar Development Foundation and contributors. Licensed
+// Copyright 2017 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -10,7 +10,7 @@
 #include "xdrpp/printer.h"
 #include "xdrpp/types.h"
 
-namespace stellar
+namespace fonero
 {
 struct OfferState;
 }
@@ -27,19 +27,19 @@ struct StringMaker<T, typename std::enable_if<xdr::xdr_traits<T>::valid>::type>
     }
 };
 
-template <> struct StringMaker<stellar::OfferState>
+template <> struct StringMaker<fonero::OfferState>
 {
-    static std::string convert(stellar::OfferState const& os);
+    static std::string convert(fonero::OfferState const& os);
 };
 
-template <> struct StringMaker<stellar::CatchupRange>
+template <> struct StringMaker<fonero::CatchupRange>
 {
-    static std::string convert(stellar::CatchupRange const& cr);
+    static std::string convert(fonero::CatchupRange const& cr);
 };
 
-template <> struct StringMaker<stellar::historytestutils::CatchupPerformedWork>
+template <> struct StringMaker<fonero::historytestutils::CatchupPerformedWork>
 {
     static std::string
-    convert(stellar::historytestutils::CatchupPerformedWork const& cr);
+    convert(fonero::historytestutils::CatchupPerformedWork const& cr);
 };
 }

@@ -1,4 +1,4 @@
-// Copyright 2017 Stellar Development Foundation and contributors. Licensed
+// Copyright 2017 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,7 +17,7 @@
 #include "util/optional.h"
 #include <xdrpp/marshal.h>
 
-using namespace stellar;
+using namespace fonero;
 
 struct LedgerUpgradeableData
 {
@@ -505,7 +505,7 @@ TEST_CASE("Ledger Manager applies upgrades properly", "[upgrades]")
             LedgerManager::GENESIS_LEDGER_BASE_RESERVE);
 
     auto executeUpgrades = [&](xdr::xvector<UpgradeType, 6> const& upgrades) {
-        StellarValue sv{txSet->getContentsHash(), 2, upgrades, 0};
+        FoneroValue sv{txSet->getContentsHash(), 2, upgrades, 0};
         LedgerCloseData ledgerData(lcl.header.ledgerSeq + 1, txSet, sv);
         app->getLedgerManager().closeLedger(ledgerData);
         return app->getLedgerManager().getLastClosedLedgerHeader();
@@ -584,7 +584,7 @@ TEST_CASE("upgrade to version 10", "[upgrades]")
         auto upgrades = xdr::xvector<UpgradeType, 6>{};
         upgrades.push_back(toUpgradeType(makeProtocolVersionUpgrade(10)));
 
-        StellarValue sv{txSet->getContentsHash(), 2, upgrades, 0};
+        FoneroValue sv{txSet->getContentsHash(), 2, upgrades, 0};
         LedgerCloseData ledgerData(lcl.header.ledgerSeq + 1, txSet, sv);
         app->getLedgerManager().closeLedger(ledgerData);
 
@@ -1423,7 +1423,7 @@ TEST_CASE("upgrade base reserve", "[upgrades]")
         auto upgrades = xdr::xvector<UpgradeType, 6>{};
         upgrades.push_back(toUpgradeType(makeBaseReserveUpgrade(newReserve)));
 
-        StellarValue sv{txSet->getContentsHash(), 2, upgrades, 0};
+        FoneroValue sv{txSet->getContentsHash(), 2, upgrades, 0};
         LedgerCloseData ledgerData(lcl.header.ledgerSeq + 1, txSet, sv);
         app->getLedgerManager().closeLedger(ledgerData);
 

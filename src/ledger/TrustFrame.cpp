@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -16,7 +16,7 @@
 using namespace std;
 using namespace soci;
 
-namespace stellar
+namespace fonero
 {
 // note: the primary key omits assettype as assetcodes are non overlapping
 const char* TrustFrame::kSQLCreateStatement1 =
@@ -130,13 +130,13 @@ getSellingLiabilities(TrustLineEntry const& tl, LedgerManager const& lm)
 int64_t
 TrustFrame::getBuyingLiabilities(LedgerManager const& lm) const
 {
-    return stellar::getBuyingLiabilities(mTrustLine, lm);
+    return fonero::getBuyingLiabilities(mTrustLine, lm);
 }
 
 int64_t
 TrustFrame::getSellingLiabilities(LedgerManager const& lm) const
 {
-    return stellar::getSellingLiabilities(mTrustLine, lm);
+    return fonero::getSellingLiabilities(mTrustLine, lm);
 }
 
 bool
@@ -157,7 +157,7 @@ TrustFrame::addBuyingLiabilities(int64_t delta, LedgerManager const& lm)
         (mTrustLine.ext.v() == 0) ? 0 : mTrustLine.ext.v1().liabilities.buying;
 
     int64_t maxLiabilities = mTrustLine.limit - getBalance();
-    bool res = stellar::addBalance(buyingLiab, delta, maxLiabilities);
+    bool res = fonero::addBalance(buyingLiab, delta, maxLiabilities);
     if (res)
     {
         if (mTrustLine.ext.v() == 0)
@@ -187,7 +187,7 @@ TrustFrame::addSellingLiabilities(int64_t delta, LedgerManager const& lm)
         (mTrustLine.ext.v() == 0) ? 0 : mTrustLine.ext.v1().liabilities.selling;
 
     int64_t maxLiabilities = mTrustLine.balance;
-    bool res = stellar::addBalance(sellingLiab, delta, maxLiabilities);
+    bool res = fonero::addBalance(sellingLiab, delta, maxLiabilities);
     if (res)
     {
         if (mTrustLine.ext.v() == 0)
@@ -232,7 +232,7 @@ TrustFrame::addBalance(int64_t delta, LedgerManager const& lm)
     }
 
     auto newBalance = mTrustLine.balance;
-    if (!stellar::addBalance(newBalance, delta, mTrustLine.limit))
+    if (!fonero::addBalance(newBalance, delta, mTrustLine.limit))
     {
         return false;
     }
@@ -487,7 +487,7 @@ TrustFrame::loadTrustLine(AccountID const& accountID, Asset const& asset,
 {
     if (asset.type() == ASSET_TYPE_NATIVE)
     {
-        throw std::runtime_error("XLM TrustLine?");
+        throw std::runtime_error("FNO TrustLine?");
     }
     else
     {

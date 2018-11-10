@@ -1,0 +1,4 @@
+#include "main/FoneroCoreVersion.h"
+
+const std::string FONERO_CORE_VERSION = "%%VERSION%%";
+

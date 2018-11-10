@@ -1,4 +1,4 @@
-// Copyright 2017 Stellar Development Foundation and contributors. Licensed
+// Copyright 2017 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -25,9 +25,9 @@ namespace cereal
 {
 template <class Archive>
 void
-save(Archive& ar, stellar::Upgrades::UpgradeParameters const& p)
+save(Archive& ar, fonero::Upgrades::UpgradeParameters const& p)
 {
-    ar(make_nvp("time", stellar::VirtualClock::to_time_t(p.mUpgradeTime)));
+    ar(make_nvp("time", fonero::VirtualClock::to_time_t(p.mUpgradeTime)));
     ar(make_nvp("version", p.mProtocolVersion));
     ar(make_nvp("fee", p.mBaseFee));
     ar(make_nvp("maxtxsize", p.mMaxTxSize));
@@ -36,11 +36,11 @@ save(Archive& ar, stellar::Upgrades::UpgradeParameters const& p)
 
 template <class Archive>
 void
-load(Archive& ar, stellar::Upgrades::UpgradeParameters& o)
+load(Archive& ar, fonero::Upgrades::UpgradeParameters& o)
 {
     time_t t;
     ar(make_nvp("time", t));
-    o.mUpgradeTime = stellar::VirtualClock::from_time_t(t);
+    o.mUpgradeTime = fonero::VirtualClock::from_time_t(t);
     ar(make_nvp("version", o.mProtocolVersion));
     ar(make_nvp("fee", o.mBaseFee));
     ar(make_nvp("maxtxsize", o.mMaxTxSize));
@@ -48,7 +48,7 @@ load(Archive& ar, stellar::Upgrades::UpgradeParameters& o)
 }
 } // namespace cereal
 
-namespace stellar
+namespace fonero
 {
 std::string
 Upgrades::UpgradeParameters::toJson() const
@@ -402,7 +402,7 @@ addLiabilities(std::map<Asset, std::unique_ptr<int64_t>>& liabilities,
     }
     if (iter->second)
     {
-        if (!stellar::addBalance(*iter->second, delta))
+        if (!fonero::addBalance(*iter->second, delta))
         {
             iter->second.reset();
         }
@@ -547,7 +547,7 @@ updateOffer(
         if (offer.buying.type() == ASSET_TYPE_NATIVE ||
             !(offer.sellerID == getIssuer(offer.buying)))
         {
-            if (!stellar::addBalance(liabilities[offer.buying].buying,
+            if (!fonero::addBalance(liabilities[offer.buying].buying,
                                      offerFrame.getBuyingLiabilities()))
             {
                 throw std::runtime_error("could not add buying "
@@ -557,7 +557,7 @@ updateOffer(
         if (offer.selling.type() == ASSET_TYPE_NATIVE ||
             !(offer.sellerID == getIssuer(offer.selling)))
         {
-            if (!stellar::addBalance(liabilities[offer.selling].selling,
+            if (!fonero::addBalance(liabilities[offer.selling].selling,
                                      offerFrame.getSellingLiabilities()))
             {
                 throw std::runtime_error("could not add selling "

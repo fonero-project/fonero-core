@@ -1,4 +1,4 @@
-// Copyright 2017 Stellar Development Foundation and contributors. Licensed
+// Copyright 2017 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -13,13 +13,13 @@
 #include "main/Application.h"
 #include "scp/SCP.h"
 #include "util/Logging.h"
-#include "xdr/Stellar-SCP.h"
-#include "xdr/Stellar-ledger-entries.h"
+#include "xdr/Fonero-SCP.h"
+#include "xdr/Fonero-ledger-entries.h"
 #include <medida/metrics_registry.h>
 #include <util/format.h>
 #include <xdrpp/marshal.h>
 
-namespace stellar
+namespace fonero
 {
 
 HerderSCPDriver::SCPMetrics::SCPMetrics(Application& app)
@@ -124,7 +124,7 @@ HerderSCPDriver::syncMetrics()
 }
 
 void
-HerderSCPDriver::restoreSCPState(uint64_t index, StellarValue const& value)
+HerderSCPDriver::restoreSCPState(uint64_t index, FoneroValue const& value)
 {
     mTrackingSCP = std::make_unique<ConsensusData>(index, value);
 }
@@ -181,7 +181,7 @@ HerderSCPDriver::isSlotCompatibleWithCurrentState(uint64_t slotIndex) const
 
 SCPDriver::ValidationLevel
 HerderSCPDriver::validateValueHelper(uint64_t slotIndex,
-                                     StellarValue const& b) const
+                                     FoneroValue const& b) const
 {
     uint64_t lastCloseTime;
 
@@ -309,7 +309,7 @@ SCPDriver::ValidationLevel
 HerderSCPDriver::validateValue(uint64_t slotIndex, Value const& value,
                                bool nomination)
 {
-    StellarValue b;
+    FoneroValue b;
     try
     {
         xdr::xdr_from_opaque(value, b);
@@ -365,7 +365,7 @@ HerderSCPDriver::validateValue(uint64_t slotIndex, Value const& value,
 Value
 HerderSCPDriver::extractValidValue(uint64_t slotIndex, Value const& value)
 {
-    StellarValue b;
+    FoneroValue b;
     try
     {
         xdr::xdr_from_opaque(value, b);
@@ -411,7 +411,7 @@ HerderSCPDriver::toShortString(PublicKey const& pk) const
 std::string
 HerderSCPDriver::getValueString(Value const& v) const
 {
-    StellarValue b;
+    FoneroValue b;
     if (v.empty())
     {
         return "[:empty:]";
@@ -421,7 +421,7 @@ HerderSCPDriver::getValueString(Value const& v) const
     {
         xdr::xdr_from_opaque(v, b);
 
-        return stellarValueToString(b);
+        return foneroValueToString(b);
     }
     catch (...)
     {
@@ -468,7 +468,7 @@ HerderSCPDriver::combineCandidates(uint64_t slotIndex,
 {
     Hash h;
 
-    StellarValue comp(h, 0, emptyUpgradeSteps, 0);
+    FoneroValue comp(h, 0, emptyUpgradeSteps, 0);
 
     std::map<LedgerUpgradeType, LedgerUpgrade> upgrades;
 
@@ -478,12 +478,12 @@ HerderSCPDriver::combineCandidates(uint64_t slotIndex,
 
     Hash candidatesHash;
 
-    std::vector<StellarValue> candidateValues;
+    std::vector<FoneroValue> candidateValues;
 
     for (auto const& c : candidates)
     {
         candidateValues.emplace_back();
-        StellarValue& sv = candidateValues.back();
+        FoneroValue& sv = candidateValues.back();
 
         xdr::xdr_from_opaque(c, sv);
         candidatesHash ^= sha256(c);
@@ -616,7 +616,7 @@ HerderSCPDriver::valueExternalized(uint64_t slotIndex, Value const& value)
         return;
     }
 
-    StellarValue b;
+    FoneroValue b;
     try
     {
         xdr::xdr_from_opaque(value, b);
@@ -624,9 +624,9 @@ HerderSCPDriver::valueExternalized(uint64_t slotIndex, Value const& value)
     catch (...)
     {
         // This may not be possible as all messages are validated and should
-        // therefore contain a valid StellarValue.
+        // therefore contain a valid FoneroValue.
         CLOG(ERROR, "Herder") << "HerderSCPDriver::valueExternalized"
-                              << " Externalized StellarValue malformed";
+                              << " Externalized FoneroValue malformed";
         // no point in continuing as 'b' contains garbage at this point
         abort();
     }
@@ -685,9 +685,9 @@ HerderSCPDriver::logQuorumInformation(uint64_t index)
 }
 
 void
-HerderSCPDriver::nominate(uint64_t slotIndex, StellarValue const& value,
+HerderSCPDriver::nominate(uint64_t slotIndex, FoneroValue const& value,
                           TxSetFramePtr proposedSet,
-                          StellarValue const& previousValue)
+                          FoneroValue const& previousValue)
 {
     mCurrentValue = xdr::xdr_to_opaque(value);
     mLedgerSeqNominating = static_cast<uint32_t>(slotIndex);

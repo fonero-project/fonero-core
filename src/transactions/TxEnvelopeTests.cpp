@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,8 +24,8 @@
 #include "util/Logging.h"
 #include "util/Timer.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace fonero;
+using namespace fonero::txtest;
 
 typedef std::unique_ptr<Application> appPtr;
 
@@ -546,16 +546,16 @@ TEST_CASE("txenvelope", "[tx][envelope]")
 
                         for_versions(3, 9, *app, [&] {
                             applyCheck(tx, *app);
-                            REQUIRE(tx->getResultCode() == stellar::txFAILED);
+                            REQUIRE(tx->getResultCode() == fonero::txFAILED);
                             REQUIRE(PaymentOpFrame::getInnerCode(getFirstResult(
-                                        *tx)) == stellar::PAYMENT_MALFORMED);
+                                        *tx)) == fonero::PAYMENT_MALFORMED);
                             REQUIRE(getAccountSigners(a1, *app).size() == 1);
                         });
                         for_versions_from(10, *app, [&] {
                             applyCheck(tx, *app);
-                            REQUIRE(tx->getResultCode() == stellar::txFAILED);
+                            REQUIRE(tx->getResultCode() == fonero::txFAILED);
                             REQUIRE(PaymentOpFrame::getInnerCode(getFirstResult(
-                                        *tx)) == stellar::PAYMENT_MALFORMED);
+                                        *tx)) == fonero::PAYMENT_MALFORMED);
                             REQUIRE(getAccountSigners(a1, *app).size() ==
                                     (alternative.autoRemove ? 0 : 1));
                         });
@@ -1044,7 +1044,7 @@ TEST_CASE("txenvelope", "[tx][envelope]")
         txSet->add(txFrame);
 
         // close this ledger
-        StellarValue sv(txSet->getContentsHash(), 1, emptyUpgradeSteps, 0);
+        FoneroValue sv(txSet->getContentsHash(), 1, emptyUpgradeSteps, 0);
         LedgerCloseData ledgerData(1, txSet, sv);
         app->getLedgerManager().closeLedger(ledgerData);
 
@@ -1327,7 +1327,7 @@ TEST_CASE("txenvelope", "[tx][envelope]")
                          setHighThreshold(2));
 
             auto tx = a.tx({setOptions(setSigner(makeSigner(b, 0))),
-                            setOptions(setHomeDomain("stellar.org"))});
+                            setOptions(setHomeDomain("fonero.org"))});
             tx->addSignature(b);
 
             for_versions({1, 2, 3, 4, 5, 6, 8, 9}, *app, [&] {
@@ -1350,7 +1350,7 @@ TEST_CASE("txenvelope", "[tx][envelope]")
                 a.tx({setOptions(setSigner(makeSigner(b, 1)) |
                                  setMasterWeight(1) | setLowThreshold(2) |
                                  setMedThreshold(2) | setHighThreshold(2)),
-                      setOptions(setHomeDomain("stellar.org"))});
+                      setOptions(setHomeDomain("fonero.org"))});
             tx->addSignature(b);
 
             for_all_versions_except({7}, *app, [&] {

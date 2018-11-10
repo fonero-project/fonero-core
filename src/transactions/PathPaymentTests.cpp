@@ -1,4 +1,4 @@
-// Copyright 2017 Stellar Development Foundation and contributors. Licensed
+// Copyright 2017 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -14,8 +14,8 @@
 #include <deque>
 #include <limits>
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace fonero;
+using namespace fonero::txtest;
 
 namespace
 {
@@ -53,13 +53,13 @@ assetToString(const Asset& asset)
     auto r = std::string{};
     switch (asset.type())
     {
-    case stellar::ASSET_TYPE_NATIVE:
-        r = std::string{"XLM"};
+    case fonero::ASSET_TYPE_NATIVE:
+        r = std::string{"FNO"};
         break;
-    case stellar::ASSET_TYPE_CREDIT_ALPHANUM4:
+    case fonero::ASSET_TYPE_CREDIT_ALPHANUM4:
         assetCodeToStr(asset.alphaNum4().assetCode, r);
         break;
-    case stellar::ASSET_TYPE_CREDIT_ALPHANUM12:
+    case fonero::ASSET_TYPE_CREDIT_ALPHANUM12:
         assetCodeToStr(asset.alphaNum12().assetCode, r);
         break;
     }
@@ -88,7 +88,7 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
 
     // set up world
     auto root = TestAccount::createRoot(*app);
-    auto xlm = makeNativeAsset();
+    auto fno = makeNativeAsset();
     auto txfee = app->getLedgerManager().getTxFee();
 
     auto const minBalanceNoTx = app->getLedgerManager().getMinBalance(0);
@@ -138,8 +138,8 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_MALFORMED);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -156,8 +156,8 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_MALFORMED);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -174,8 +174,8 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_MALFORMED);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -192,8 +192,8 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_MALFORMED);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -211,8 +211,8 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 ex_PATH_PAYMENT_MALFORMED);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -230,8 +230,8 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 ex_PATH_PAYMENT_MALFORMED);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -249,17 +249,17 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 ex_PATH_PAYMENT_MALFORMED);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
 
-    SECTION("dest amount too big for XLM")
+    SECTION("dest amount too big for FNO")
     {
         auto a = root.create("a", minBalance1);
         for_all_versions(*app, [&] {
-            REQUIRE_THROWS_AS(root.pay(a, xlm, 20, xlm,
+            REQUIRE_THROWS_AS(root.pay(a, fno, 20, fno,
                                        std::numeric_limits<int64_t>::max(), {}),
                               ex_PATH_PAYMENT_MALFORMED);
         });
@@ -278,19 +278,19 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
         });
     }
 
-    SECTION("path payment XLM with not enough funds")
+    SECTION("path payment FNO with not enough funds")
     {
         auto market = TestMarket{*app};
-        // see https://github.com/stellar/stellar-core/pull/1239
+        // see https://github.com/fonero-project/fonero-core/pull/1239
         auto minimumAccount =
             root.create("minimum-account", minBalanceNoTx + 2 * txfee + 20);
         for_all_versions(*app, [&] {
             REQUIRE_THROWS_AS(
-                minimumAccount.pay(root, xlm, txfee + 21, xlm, txfee + 21, {}),
+                minimumAccount.pay(root, fno, txfee + 21, fno, txfee + 21, {}),
                 ex_PATH_PAYMENT_UNDERFUNDED);
             // clang-format off
             market.requireBalances(
-                {{minimumAccount, {{xlm, minBalanceNoTx + txfee + 20}, {idr, 0}, {usd, 0}}}});
+                {{minimumAccount, {{fno, minBalanceNoTx + txfee + 20}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -308,16 +308,16 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_UNDERFUNDED);
             // clang-format off
             market.requireBalances(
-                {{minimumAccount, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{minimumAccount, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
             REQUIRE_THROWS_AS(
                 minimumAccount.pay(destination, idr, 11, idr, 11, {}),
                 ex_PATH_PAYMENT_UNDERFUNDED);
             // clang-format off
             market.requireBalances(
-                {{minimumAccount, {{xlm, minBalance1 - 3 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{minimumAccount, {{fno, minBalance1 - 3 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -333,16 +333,16 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_SRC_NO_TRUST);
             // clang-format off
             market.requireBalances(
-                {{noSourceTrust, {{xlm, minBalance - txfee}, {idr, 0}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{noSourceTrust, {{fno, minBalance - txfee}, {idr, 0}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
             REQUIRE_THROWS_AS(
                 noSourceTrust.pay(destination, idr, 1, idr, 1, {}),
                 ex_PATH_PAYMENT_SRC_NO_TRUST);
             // clang-format off
             market.requireBalances(
-                {{noSourceTrust, {{xlm, minBalance - 2 * txfee}, {idr, 0}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{noSourceTrust, {{fno, minBalance - 2 * txfee}, {idr, 0}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -365,16 +365,16 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 ex_PATH_PAYMENT_SRC_NOT_AUTHORIZED);
             // clang-format off
             market.requireBalances(
-                {{noAuthorizedSourceTrust, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{noAuthorizedSourceTrust, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
             REQUIRE_THROWS_AS(
                 noAuthorizedSourceTrust.pay(destination, idr, 10, idr, 10, {}),
                 ex_PATH_PAYMENT_SRC_NOT_AUTHORIZED);
             // clang-format off
             market.requireBalances(
-                {{noAuthorizedSourceTrust, {{xlm, minBalance1 - 3 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{noAuthorizedSourceTrust, {{fno, minBalance1 - 3 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -393,7 +393,7 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 ex_PATH_PAYMENT_NO_DESTINATION);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -412,7 +412,7 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(offers.success().offers == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -430,7 +430,7 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_NO_DESTINATION);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -449,16 +449,16 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 ex_PATH_PAYMENT_NO_TRUST);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - txfee}, {idr, 10}, {usd, 0}}},
-                 {noDestinationTrust, {{xlm, minBalance}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - txfee}, {idr, 10}, {usd, 0}}},
+                 {noDestinationTrust, {{fno, minBalance}, {idr, 0}, {usd, 0}}}});
             // clang-format on
             REQUIRE_THROWS_AS(
                 source.pay(noDestinationTrust, idr, 1, idr, 1, {}),
                 ex_PATH_PAYMENT_NO_TRUST);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {noDestinationTrust, {{xlm, minBalance}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {noDestinationTrust, {{fno, minBalance}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -481,16 +481,16 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 ex_PATH_PAYMENT_NOT_AUTHORIZED);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - txfee}, {idr, 10}, {usd, 0}}},
-                 {noAuthorizedDestinationTrust, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - txfee}, {idr, 10}, {usd, 0}}},
+                 {noAuthorizedDestinationTrust, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
             REQUIRE_THROWS_AS(
                 source.pay(noAuthorizedDestinationTrust, idr, 10, idr, 10, {}),
                 ex_PATH_PAYMENT_NOT_AUTHORIZED);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {noAuthorizedDestinationTrust, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {noAuthorizedDestinationTrust, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -509,15 +509,15 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_LINE_FULL);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 10}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 10}, {usd, 0}}}});
             // clang-format on
             REQUIRE_THROWS_AS(source.pay(destination, idr, 11, idr, 11, {}),
                               ex_PATH_PAYMENT_LINE_FULL);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 10}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 10}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -536,15 +536,15 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_LINE_FULL);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, std::numeric_limits<int64_t>::max() - 10}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, std::numeric_limits<int64_t>::max() - 10}, {usd, 0}}}});
             // clang-format on
             REQUIRE_THROWS_AS(source.pay(destination, idr, 11, idr, 11, {}),
                               ex_PATH_PAYMENT_LINE_FULL);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, std::numeric_limits<int64_t>::max() - 10}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, std::numeric_limits<int64_t>::max() - 10}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -564,8 +564,8 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 ex_PATH_PAYMENT_NO_ISSUER);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -585,8 +585,8 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 ex_PATH_PAYMENT_NO_ISSUER);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -606,8 +606,8 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 ex_PATH_PAYMENT_NO_ISSUER);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -655,11 +655,11 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_TOO_FEW_OFFERS);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
             // clang-format on
         });
     }
@@ -707,11 +707,11 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_TOO_FEW_OFFERS);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
             // clang-format on
         });
     }
@@ -759,11 +759,11 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_TOO_FEW_OFFERS);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
             // clang-format on
         });
     }
@@ -809,10 +809,10 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_OFFER_CROSS_SELF);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance3 - 4 * txfee}, {cur1, 10}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
+                {{source, {{fno, minBalance3 - 4 * txfee}, {cur1, 10}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
             // clang-format on
         });
     }
@@ -859,10 +859,10 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_OFFER_CROSS_SELF);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 5 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
+                {{source, {{fno, minBalance4 - 5 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
             // clang-format on
         });
     }
@@ -909,10 +909,10 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_OFFER_CROSS_SELF);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 5 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
+                {{source, {{fno, minBalance4 - 5 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
             // clang-format on
         });
     }
@@ -975,11 +975,11 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
     }
@@ -1043,11 +1043,11 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
     }
@@ -1111,26 +1111,26 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
     }
 
-    SECTION("path payment over send max XLM")
+    SECTION("path payment over send max FNO")
     {
         auto market = TestMarket{*app};
         auto source = root.create("source", minBalance);
         auto destination = root.create("destination", minBalance);
         for_all_versions(*app, [&] {
-            REQUIRE_THROWS_AS(source.pay(destination, xlm, 10, xlm, 11, {}),
+            REQUIRE_THROWS_AS(source.pay(destination, fno, 10, fno, 11, {}),
                               ex_PATH_PAYMENT_OVER_SENDMAX);
             market.requireBalances(
-                {{source, {{xlm, minBalance - txfee}, {idr, 0}, {usd, 0}}},
-                 {destination, {{xlm, minBalance}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance - txfee}, {idr, 0}, {usd, 0}}},
+                 {destination, {{fno, minBalance}, {idr, 0}, {usd, 0}}}});
         });
     }
 
@@ -1148,8 +1148,8 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_OVER_SENDMAX);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {idr, 10}, {usd, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {idr, 0}, {usd, 0}}}});
             // clang-format on
         });
     }
@@ -1197,30 +1197,30 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                               ex_PATH_PAYMENT_OVER_SENDMAX);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
             // clang-format on
         });
     }
 
-    SECTION("path payment to self XLM")
+    SECTION("path payment to self FNO")
     {
         auto market = TestMarket{*app};
         auto account = root.create("account", minBalance + txfee + 20);
 
         for_versions_to(7, *app, [&] {
-            auto offers = account.pay(account, xlm, 20, xlm, 20, {});
+            auto offers = account.pay(account, fno, 20, fno, 20, {});
             auto expected = std::vector<ClaimOfferAtom>{};
             REQUIRE(offers.success().offers == expected);
-            market.requireBalances({{account, {{xlm, minBalance}}}});
+            market.requireBalances({{account, {{fno, minBalance}}}});
         });
 
         for_versions_from(8, *app, [&] {
-            account.pay(account, xlm, 20, xlm, 20, {});
-            market.requireBalances({{account, {{xlm, minBalance + 20}}}});
+            account.pay(account, fno, 20, fno, 20, {});
+            market.requireBalances({{account, {{fno, minBalance + 20}}}});
         });
     }
 
@@ -1304,10 +1304,10 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance4 - 4 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {destination, {{fno, minBalance4 - 4 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
     }
@@ -1363,10 +1363,10 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance4 - 4 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 0}}},
+                 {destination, {{fno, minBalance4 - 4 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
     }
@@ -1421,10 +1421,10 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance1 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance4 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 10}}}});
+                {{source, {{fno, minBalance1 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 10}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {destination, {{fno, minBalance4 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 10}, {cur4, 10}}}});
             // clang-format on
         });
     }
@@ -1489,12 +1489,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12a, {{xlm, minBalance3 - 3 * txfee}, {cur1, 20}, {cur2, 30}, {cur3, 0}, {cur4, 0}}},
-                 {mm12b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 60}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12a, {{fno, minBalance3 - 3 * txfee}, {cur1, 20}, {cur2, 30}, {cur3, 0}, {cur4, 0}}},
+                 {mm12b, {{fno, minBalance3 - 3 * txfee}, {cur1, 60}, {cur2, 10}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
     }
@@ -1559,12 +1559,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23a, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 30}, {cur3, 5}, {cur4, 0}}},
-                 {mm23a, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 30}, {cur3, 5}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23a, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 30}, {cur3, 5}, {cur4, 0}}},
+                 {mm23a, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 30}, {cur3, 5}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
     }
@@ -1629,12 +1629,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34a, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 4}, {cur4, 8}}},
-                 {mm34b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 16}, {cur4, 2}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34a, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 4}, {cur4, 8}}},
+                 {mm34b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 16}, {cur4, 2}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
     }
@@ -1701,12 +1701,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 4}, {cur2, 38}, {cur3, 0}, {cur4, 0}}},
-                 {mm12b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 76}, {cur2, 2}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12a, {{fno, minBalance3 - 4 * txfee}, {cur1, 4}, {cur2, 38}, {cur3, 0}, {cur4, 0}}},
+                 {mm12b, {{fno, minBalance3 - 3 * txfee}, {cur1, 76}, {cur2, 2}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
 
@@ -1778,12 +1778,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0},  {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 4}, {cur3, 18}, {cur4, 0}}},
-                 {mm23b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 36}, {cur3, 2}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0},  {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 4}, {cur3, 18}, {cur4, 0}}},
+                 {mm23b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 36}, {cur3, 2}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
 
@@ -1855,12 +1855,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 2}, {cur4, 9}}},
-                 {mm34b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 18}, {cur4, 1}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 2}, {cur4, 9}}},
+                 {mm34b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 18}, {cur4, 1}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
 
@@ -1935,12 +1935,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 REQUIRE(actual == expected);
                 // clang-format off
                 market.requireBalances(
-                    {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm12a, {{xlm, minBalance3 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm12b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                     {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                     {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                    {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm12a, {{fno, minBalance3 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm12b, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                     {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                     {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
                 // clang-format on
             });
 
@@ -1974,12 +1974,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 REQUIRE(actual == expected);
                 // clang-format off
                 market.requireBalances(
-                    {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm12a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                     {mm12b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                     {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                     {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                    {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm12a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                     {mm12b, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                     {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                     {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
                 // clang-format on
             });
 
@@ -2055,12 +2055,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 REQUIRE(actual == expected);
                 // clang-format off
                 market.requireBalances(
-                    {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm23a, {{xlm, minBalance3 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm23b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                     {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                     {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                    {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm23a, {{fno, minBalance3 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm23b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                     {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                     {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
                 // clang-format on
             });
 
@@ -2094,12 +2094,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 REQUIRE(actual == expected);
                 // clang-format off
                 market.requireBalances(
-                    {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm23a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                     {mm23b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                     {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                     {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                    {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm23a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                     {mm23b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                     {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                     {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
                 // clang-format on
             });
 
@@ -2175,12 +2175,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 REQUIRE(actual == expected);
                 // clang-format off
                 market.requireBalances(
-                    {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                     {mm34a, {{xlm, minBalance3 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm34b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                     {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                    {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                     {mm34a, {{fno, minBalance3 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm34b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                     {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
                 // clang-format on
             });
 
@@ -2214,12 +2214,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 REQUIRE(actual == expected);
                 // clang-format off
                 market.requireBalances(
-                    {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                     {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                     {mm34a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
-                     {mm34b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                     {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                    {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                     {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                     {mm34a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
+                     {mm34b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                     {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
                 // clang-format on
             });
 
@@ -2293,12 +2293,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12b, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
 
@@ -2371,12 +2371,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
 
@@ -2449,12 +2449,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm34b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm34b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
 
@@ -2527,12 +2527,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12a, {{xlm, minBalance3 - 3 * txfee}, {cur1, 200}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm12b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12a, {{fno, minBalance3 - 3 * txfee}, {cur1, 200}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm12b, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
 
@@ -2605,12 +2605,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23a, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 200}, {cur3, 20}, {cur4, 0}}},
-                 {mm23b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23a, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 200}, {cur3, 20}, {cur4, 0}}},
+                 {mm23b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
 
@@ -2683,12 +2683,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34a, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 200}, {cur4, 10}}},
-                 {mm34b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34a, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 200}, {cur4, 10}}},
+                 {mm34b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
 
@@ -2761,12 +2761,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 1}, {cur3, 0}, {cur4, 0}}},
-                 {mm12b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 1}, {cur3, 0}, {cur4, 0}}},
+                 {mm12b, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
         for_versions(3, 9, *app, [&] {
@@ -2791,12 +2791,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 1}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 1}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 78}, {cur2, 1}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 1}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12a, {{fno, minBalance3 - 4 * txfee}, {cur1, 1}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12b, {{fno, minBalance3 - 3 * txfee}, {cur1, 78}, {cur2, 1}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
         // This is no longer possible starting in version 10, as it is
@@ -2875,12 +2875,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 1}, {cur4, 0}}},
-                 {mm23b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 1}, {cur4, 0}}},
+                 {mm23b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
         for_versions(3, 9, *app, [&] {
@@ -2905,12 +2905,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 2}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 78}, {cur2, 1}, {cur3, 0}, {cur4, 0}}},
-                 {mm23a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 1}, {cur3, 0}, {cur4, 0}}},
-                 {mm23b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 38}, {cur3, 1}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 2}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 78}, {cur2, 1}, {cur3, 0}, {cur4, 0}}},
+                 {mm23a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 1}, {cur3, 0}, {cur4, 0}}},
+                 {mm23b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 38}, {cur3, 1}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
         // This is no longer possible starting in version 10, as it is
@@ -2989,12 +2989,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 1}}},
-                 {mm34b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 1}}},
+                 {mm34b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
         for_versions(3, 9, *app, [&] {
@@ -3019,12 +3019,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 4}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 76}, {cur2, 2}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 38}, {cur3, 1}, {cur4, 0}}},
-                 {mm34a, {{xlm, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 1}, {cur4, 0}}},
-                 {mm34b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 18}, {cur4, 1}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 4}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 76}, {cur2, 2}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 38}, {cur3, 1}, {cur4, 0}}},
+                 {mm34a, {{fno, minBalance3 - 4 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 1}, {cur4, 0}}},
+                 {mm34b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 18}, {cur4, 1}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
         // This is no longer possible starting in version 10, as it is
@@ -3103,12 +3103,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12a, {{xlm, minBalance3 - 3 * txfee}, {cur1, 199}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm12b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12a, {{fno, minBalance3 - 3 * txfee}, {cur1, 199}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm12b, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
         // This is no longer possible starting in version 10, as it is
@@ -3191,12 +3191,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23a, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 199}, {cur3, 20}, {cur4, 0}}},
-                 {mm23b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23a, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 199}, {cur3, 20}, {cur4, 0}}},
+                 {mm23b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
         // This is no longer possible starting in version 10, as it is
@@ -3279,12 +3279,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34a, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 199}, {cur4, 10}}},
-                 {mm34b, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34a, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 199}, {cur4, 10}}},
+                 {mm34b, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
         // This is no longer possible starting in version 10, as it is
@@ -3356,11 +3356,11 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 80}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 40}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 20}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
     }
@@ -3424,11 +3424,11 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             });
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 45}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 28}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 17}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 45}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 28}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 17}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
             // clang-format on
         });
         for_versions(3, 9, *app, [&] {
@@ -3489,11 +3489,11 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance5 - 5 * txfee}, {cur1, 45}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 28}, {cur3, 0}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 17}, {cur4, 0}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance5 - 5 * txfee}, {cur1, 45}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 28}, {cur3, 0}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 17}, {cur4, 0}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
     }
@@ -3557,11 +3557,11 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             });
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 45}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 28}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 17}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 45}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 28}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 17}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 0}}}});
             // clang-format on
         });
         for_versions(3, 9, *app, [&] {
@@ -3622,11 +3622,11 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 16}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance5 - 5 * txfee}, {cur1, 29}, {cur2, 8}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 20}, {cur3, 4}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 13}, {cur4, 2}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 8}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 16}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance5 - 5 * txfee}, {cur1, 29}, {cur2, 8}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 20}, {cur3, 4}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance5 - 5 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 13}, {cur4, 2}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 8}}}});
             // clang-format on
         });
     }
@@ -3694,12 +3694,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE(actual == expected);
             // clang-format off
             market.requireBalances(
-                {{source, {{xlm, minBalance4 - 2 * txfee}, {cur1, 6720}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
-                 {mm12, {{xlm, minBalance3 - 3 * txfee}, {cur1, 1360}, {cur2, 7320}, {cur3, 0}, {cur4, 0}}},
-                 {mm23, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 680}, {cur3, 7660}, {cur4, 0}}},
-                 {mm34, {{xlm, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 340}, {cur4, 7830}}},
-                 {mm41, {{xlm, minBalance3 - 3 * txfee}, {cur1, 7920}, {cur2, 0}, {cur3, 0}, {cur4, 160}}},
-                 {destination, {{xlm, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
+                {{source, {{fno, minBalance4 - 2 * txfee}, {cur1, 6720}, {cur2, 0}, {cur3, 0}, {cur4, 0}}},
+                 {mm12, {{fno, minBalance3 - 3 * txfee}, {cur1, 1360}, {cur2, 7320}, {cur3, 0}, {cur4, 0}}},
+                 {mm23, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 680}, {cur3, 7660}, {cur4, 0}}},
+                 {mm34, {{fno, minBalance3 - 3 * txfee}, {cur1, 0}, {cur2, 0}, {cur3, 340}, {cur4, 7830}}},
+                 {mm41, {{fno, minBalance3 - 3 * txfee}, {cur1, 7920}, {cur2, 0}, {cur3, 0}, {cur4, 160}}},
+                 {destination, {{fno, minBalance1 - txfee}, {cur1, 0}, {cur2, 0}, {cur3, 0}, {cur4, 10}}}});
             // clang-format on
         });
     }
@@ -3719,7 +3719,7 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
         issuer.pay(seller, cny, 1700000000);
         auto price = Price{2000, 29};
         auto sellerOffer = market.requireChangesWithOffer({}, [&] {
-            return market.addOffer(seller, {cny, xlm, price, 145000000});
+            return market.addOffer(seller, {cny, fno, price, 145000000});
         });
 
         auto path = std::vector<Asset>{};
@@ -3728,19 +3728,19 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             REQUIRE_THROWS_AS(market.requireChanges(
                                   {},
                                   [&] {
-                                      source.pay(destination, xlm, 1382068965,
+                                      source.pay(destination, fno, 1382068965,
                                                  cny, 20000000, path);
                                   }),
                               ex_PATH_PAYMENT_TOO_FEW_OFFERS);
         });
         for_versions_from(3, *app, [&] {
             auto sellerOfferRemaining =
-                OfferState{cny, xlm, price, 145000000 - 20000000};
+                OfferState{cny, fno, price, 145000000 - 20000000};
             auto actual = std::vector<ClaimOfferAtom>{};
             market.requireChanges(
                 {{sellerOffer.key, sellerOfferRemaining}}, [&] {
                     actual = source
-                                 .pay(destination, xlm, 1382068965, cny,
+                                 .pay(destination, fno, 1382068965, cny,
                                       20000000, path, nullptr)
                                  .success()
                                  .offers;
@@ -3750,7 +3750,7 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
                 sellerOffer.exchanged(20000000, 1379310345)};
             REQUIRE(actual == expected);
             market.requireBalances(
-                {{source, {{xlm, 1989999000 - 100 - 1379310345}}},
+                {{source, {{fno, 1989999000 - 100 - 1379310345}}},
                  {seller, {{cny, 1680000000}}},
                  {destination, {{cny, 20000000}}}});
         });
@@ -3774,7 +3774,7 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
         gateway.pay(mm, idr, 1000000000);
         gateway2.pay(mm, usd, 1000000000);
 
-        auto path = std::vector<Asset>{xlm, usd};
+        auto path = std::vector<Asset>{fno, usd};
 
         for_versions_to(2, *app, [&] {
             auto idrCurCheapOffer = market.requireChangesWithOffer({}, [&] {
@@ -3788,10 +3788,10 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             });
             auto usdCurOffer = market.requireChangesWithOffer({}, [&] {
                 return market.addOffer(mm,
-                                       {usd, xlm, Price{1, 2}, 2 * offerSize});
+                                       {usd, fno, Price{1, 2}, 2 * offerSize});
             });
 
-            auto res = source.pay(destination, xlm, 8 * paymentToReceive, idr,
+            auto res = source.pay(destination, fno, 8 * paymentToReceive, idr,
                                   paymentToReceive, path);
 
             auto expected = std::vector<ClaimOfferAtom>{
@@ -3815,10 +3815,10 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             });
             auto usdCurOffer = market.requireChangesWithOffer({}, [&] {
                 return market.addOffer(mm,
-                                       {usd, xlm, Price{1, 2}, 2 * offerSize});
+                                       {usd, fno, Price{1, 2}, 2 * offerSize});
             });
 
-            auto res = source.pay(destination, xlm, 8 * paymentToReceive, idr,
+            auto res = source.pay(destination, fno, 8 * paymentToReceive, idr,
                                   paymentToReceive, path);
 
             auto expected = std::vector<ClaimOfferAtom>{
@@ -3836,12 +3836,12 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             // Create 3 different cycles.
             // First cycle involves 3 transaction in which
             // buying price is
-            // always half - so sender buys 8 times as much XLM
+            // always half - so sender buys 8 times as much FNO
             // as he/she
             // sells (arbitrage).
             // Second cycle involves 3 transaction in which
             // buying price is
-            // always two - so sender buys 8 times as much XLM
+            // always two - so sender buys 8 times as much FNO
             // as he/she
             // sells (anti-arbitrage).
             // Thanks to send max option this transaction is
@@ -3850,14 +3850,14 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             // set to a
             // high value, so transaction proceeds even if it
             // makes sender
-            // lose a lot of XLM.
+            // lose a lot of FNO.
 
             // Each cycle is created in 3 variants (to check if
             // behavior
             // does not depend of nativeness of asset):
-            // * XLM -> USD -> IDR -> XLM
-            // * USD -> IDR -> XLM -> USD
-            // * IDR -> XLM -> USD -> IDR
+            // * FNO -> USD -> IDR -> FNO
+            // * USD -> IDR -> FNO -> USD
+            // * IDR -> FNO -> USD -> IDR
             // To create variants, rotateRight() function is
             // used on
             // accounts, offers and assets -
@@ -3879,7 +3879,7 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             // used in one case
             auto txFee = app->getLedgerManager().getTxFee();
 
-            auto assets = std::deque<Asset>{xlm, usd, idr};
+            auto assets = std::deque<Asset>{fno, usd, idr};
             int pathSize = (int)assets.size();
             auto accounts = std::deque<TestAccount>{};
 
@@ -4131,7 +4131,7 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
             gateway.pay(mm12, cur2, 100);
 
             auto offer = market.requireChangesWithOffer({}, [&] {
-                return market.addOffer(source, {cur1, xlm, Price{1, 1}, 50});
+                return market.addOffer(source, {cur1, fno, Price{1, 1}, 50});
             });
             auto o2 = market.requireChangesWithOffer({}, [&] {
                 return market.addOffer(mm12, {cur2, cur1, Price{1, 1}, 100});
@@ -4167,7 +4167,7 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
 
             auto offer = market.requireChangesWithOffer({}, [&] {
                 return market.addOffer(destination,
-                                       {xlm, cur2, Price{1, 1}, 50});
+                                       {fno, cur2, Price{1, 1}, 50});
             });
             auto o2 = market.requireChangesWithOffer({}, [&] {
                 return market.addOffer(mm12, {cur2, cur1, Price{1, 1}, 100});

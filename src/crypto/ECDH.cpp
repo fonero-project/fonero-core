@@ -1,4 +1,4 @@
-// Copyright 2015 Stellar Development Foundation and contributors. Licensed
+// Copyright 2015 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -8,7 +8,7 @@
 #include <functional>
 #include <sodium.h>
 
-namespace stellar
+namespace fonero
 {
 
 Curve25519Secret
@@ -54,9 +54,9 @@ EcdhDeriveSharedKey(Curve25519Secret const& localSecret,
 namespace std
 {
 size_t
-hash<stellar::Curve25519Public>::
-operator()(stellar::Curve25519Public const& k) const noexcept
+hash<fonero::Curve25519Public>::
+operator()(fonero::Curve25519Public const& k) const noexcept
 {
-    return std::hash<stellar::uint256>()(k.key);
+    return std::hash<fonero::uint256>()(k.key);
 }
 }

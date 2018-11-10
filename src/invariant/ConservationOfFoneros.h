@@ -1,6 +1,6 @@
 #pragma once
 
-// Copyright 2017 Stellar Development Foundation and contributors. Licensed
+// Copyright 2017 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -8,20 +8,20 @@
 #include "ledger/LedgerDelta.h"
 #include <memory>
 
-namespace stellar
+namespace fonero
 {
 
 class Application;
 class LedgerManager;
 
-// This Invariant is used to validate that the total number of lumens only
+// This Invariant is used to validate that the total number of foneros only
 // changes during inflation. The Invariant also checks that, after inflation,
 // the totalCoins and feePool of the LedgerHeader matches the total balance
 // in the database.
-class ConservationOfLumens : public Invariant
+class ConservationOfFoneros : public Invariant
 {
   public:
-    ConservationOfLumens();
+    ConservationOfFoneros();
 
     static std::shared_ptr<Invariant> registerInvariant(Application& app);
 

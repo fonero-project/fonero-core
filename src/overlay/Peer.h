@@ -1,13 +1,13 @@
 #pragma once
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "util/asio.h"
 #include "database/Database.h"
 #include "overlay/PeerBareAddress.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/FoneroXDR.h"
 #include "util/NonCopyable.h"
 #include "util/Timer.h"
 #include "xdrpp/message.h"
@@ -18,7 +18,7 @@ class Timer;
 class Meter;
 }
 
-namespace stellar
+namespace fonero
 {
 
 typedef std::shared_ptr<SCPQuorumSet> SCPQuorumSetPtr;
@@ -137,26 +137,26 @@ class Peer : public std::enable_shared_from_this<Peer>,
     medida::Meter& mDropInRecvErrorMeter;
 
     bool shouldAbort() const;
-    void recvMessage(StellarMessage const& msg);
+    void recvMessage(FoneroMessage const& msg);
     void recvMessage(AuthenticatedMessage const& msg);
     void recvMessage(xdr::msg_ptr const& xdrBytes);
 
-    virtual void recvError(StellarMessage const& msg);
+    virtual void recvError(FoneroMessage const& msg);
     // returns false if we should drop this peer
     void noteHandshakeSuccessInPeerRecord();
-    void recvAuth(StellarMessage const& msg);
-    void recvDontHave(StellarMessage const& msg);
-    void recvGetPeers(StellarMessage const& msg);
+    void recvAuth(FoneroMessage const& msg);
+    void recvDontHave(FoneroMessage const& msg);
+    void recvGetPeers(FoneroMessage const& msg);
     void recvHello(Hello const& elo);
-    void recvPeers(StellarMessage const& msg);
+    void recvPeers(FoneroMessage const& msg);
 
-    void recvGetTxSet(StellarMessage const& msg);
-    void recvTxSet(StellarMessage const& msg);
-    void recvTransaction(StellarMessage const& msg);
-    void recvGetSCPQuorumSet(StellarMessage const& msg);
-    void recvSCPQuorumSet(StellarMessage const& msg);
-    void recvSCPMessage(StellarMessage const& msg);
-    void recvGetSCPState(StellarMessage const& msg);
+    void recvGetTxSet(FoneroMessage const& msg);
+    void recvTxSet(FoneroMessage const& msg);
+    void recvTransaction(FoneroMessage const& msg);
+    void recvGetSCPQuorumSet(FoneroMessage const& msg);
+    void recvSCPQuorumSet(FoneroMessage const& msg);
+    void recvSCPMessage(FoneroMessage const& msg);
+    void recvGetSCPState(FoneroMessage const& msg);
 
     void sendHello();
     void sendAuth();
@@ -201,7 +201,7 @@ class Peer : public std::enable_shared_from_this<Peer>,
     void sendGetPeers();
     void sendGetScpState(uint32 ledgerSeq);
 
-    void sendMessage(StellarMessage const& msg);
+    void sendMessage(FoneroMessage const& msg);
 
     PeerRole
     getRole() const

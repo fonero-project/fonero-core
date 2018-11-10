@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -17,7 +17,7 @@
 #include "util/XDROperators.h"
 #include <algorithm>
 
-namespace stellar
+namespace fonero
 {
 
 using namespace std;
@@ -32,7 +32,7 @@ bool
 PaymentOpFrame::doApply(Application& app, LedgerDelta& delta,
                         LedgerManager& ledgerManager)
 {
-    // if sending to self XLM directly, just mark as success, else we need at
+    // if sending to self FNO directly, just mark as success, else we need at
     // least to check trustlines
     // in ledger version 2 it would work for any asset type
     auto instantSuccess = app.getLedgerManager().getCurrentLedgerVersion() > 2

@@ -1,11 +1,11 @@
 #pragma once
 
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "ledger/AccountFrame.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/FoneroXDR.h"
 #include "util/types.h"
 
 #include <memory>
@@ -20,7 +20,7 @@ class session;
 A transaction in its exploded form.
 We can get it in from the DB or from the wire
 */
-namespace stellar
+namespace fonero
 {
 class Application;
 class OperationFrame;
@@ -171,7 +171,7 @@ class TransactionFrame
     // version without meta
     bool apply(LedgerDelta& delta, Application& app);
 
-    StellarMessage toStellarMessage() const;
+    FoneroMessage toFoneroMessage() const;
 
     AccountFrame::pointer loadAccount(int ledgerProtocolVersion,
                                       LedgerDelta* delta, Database& app,

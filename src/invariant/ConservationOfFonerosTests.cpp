@@ -1,8 +1,8 @@
-// Copyright 2017 Stellar Development Foundation and contributors. Licensed
+// Copyright 2017 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#include "invariant/ConservationOfLumens.h"
+#include "invariant/ConservationOfFoneros.h"
 #include "invariant/InvariantDoesNotHold.h"
 #include "invariant/InvariantManager.h"
 #include "invariant/InvariantTestUtils.h"
@@ -14,8 +14,8 @@
 #include <random>
 #include <xdrpp/autocheck.h>
 
-using namespace stellar;
-using namespace stellar::InvariantTestUtils;
+using namespace fonero;
+using namespace fonero::InvariantTestUtils;
 
 int64_t
 getTotalBalance(std::vector<LedgerEntry> const& entries)
@@ -97,11 +97,11 @@ updateBalances(std::vector<LedgerEntry> const& entries, Application& app,
 }
 
 TEST_CASE("Total coins change without inflation",
-          "[invariant][conservationoflumens]")
+          "[invariant][conservationoffoneros]")
 {
     std::default_random_engine gen;
     Config cfg = getTestConfig(0);
-    cfg.INVARIANT_CHECKS = {"ConservationOfLumens"};
+    cfg.INVARIANT_CHECKS = {"ConservationOfFoneros"};
 
     std::uniform_int_distribution<int64_t> dist(0, INT64_MAX);
 
@@ -118,11 +118,11 @@ TEST_CASE("Total coins change without inflation",
 }
 
 TEST_CASE("Fee pool change without inflation",
-          "[invariant][conservationoflumens]")
+          "[invariant][conservationoffoneros]")
 {
     std::default_random_engine gen;
     Config cfg = getTestConfig(0);
-    cfg.INVARIANT_CHECKS = {"ConservationOfLumens"};
+    cfg.INVARIANT_CHECKS = {"ConservationOfFoneros"};
 
     std::uniform_int_distribution<int64_t> dist(0, INT64_MAX);
 
@@ -139,11 +139,11 @@ TEST_CASE("Fee pool change without inflation",
 }
 
 TEST_CASE("Account balances changed without inflation",
-          "[invariant][conservationoflumens]")
+          "[invariant][conservationoffoneros]")
 {
     std::default_random_engine gen;
     Config cfg = getTestConfig(0);
-    cfg.INVARIANT_CHECKS = {"ConservationOfLumens"};
+    cfg.INVARIANT_CHECKS = {"ConservationOfFoneros"};
 
     uint32_t const N = 10;
     for (uint32_t i = 0; i < 100; ++i)
@@ -179,11 +179,11 @@ TEST_CASE("Account balances changed without inflation",
 }
 
 TEST_CASE("Account balances unchanged without inflation",
-          "[invariant][conservationoflumens]")
+          "[invariant][conservationoffoneros]")
 {
     std::default_random_engine gen;
     Config cfg = getTestConfig(0);
-    cfg.INVARIANT_CHECKS = {"ConservationOfLumens"};
+    cfg.INVARIANT_CHECKS = {"ConservationOfFoneros"};
 
     uint32_t const N = 10;
     for (uint32_t i = 0; i < 100; ++i)
@@ -226,11 +226,11 @@ TEST_CASE("Account balances unchanged without inflation",
 }
 
 TEST_CASE("Inflation changes are consistent",
-          "[invariant][conservationoflumens]")
+          "[invariant][conservationoffoneros]")
 {
     std::default_random_engine gen;
     Config cfg = getTestConfig(0);
-    cfg.INVARIANT_CHECKS = {"ConservationOfLumens"};
+    cfg.INVARIANT_CHECKS = {"ConservationOfFoneros"};
     std::uniform_int_distribution<uint32_t> payoutsDist(1, 100);
     std::uniform_int_distribution<int64_t> amountDist(1, 100000);
 

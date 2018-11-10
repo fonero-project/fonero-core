@@ -1,4 +1,4 @@
-// Copyright 2014 Stellar Development Foundation and contributors. Licensed
+// Copyright 2014 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -14,7 +14,7 @@
 
 using namespace soci;
 
-namespace stellar
+namespace fonero
 {
 
 MergeOpFrame::MergeOpFrame(Operation const& op, OperationResult& res,
@@ -33,7 +33,7 @@ MergeOpFrame::getThresholdLevel() const
 // make sure we aren't holding any credit
 // make sure the we delete all the offers
 // make sure the we delete all the trustlines
-// move the XLM to the new account
+// move the FNO to the new account
 bool
 MergeOpFrame::doApply(Application& app, LedgerDelta& delta,
                       LedgerManager& ledgerManager)

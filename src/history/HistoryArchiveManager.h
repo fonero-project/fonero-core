@@ -1,6 +1,6 @@
 #pragma once
 
-// Copyright 2018 Stellar Development Foundation and contributors. Licensed
+// Copyright 2018 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -12,7 +12,7 @@ namespace Json
 class Value;
 }
 
-namespace stellar
+namespace fonero
 {
 class Application;
 class Config;
@@ -31,7 +31,7 @@ class HistoryArchiveManager
     std::shared_ptr<HistoryArchive> selectRandomReadableHistoryArchive() const;
 
     // Initialize a named history archive by writing
-    // .well-known/stellar-history.json to it.
+    // .well-known/fonero-history.json to it.
     bool initializeHistoryArchive(std::string const& arch) const;
 
     // Returns whether or not the HistoryManager has any writable history

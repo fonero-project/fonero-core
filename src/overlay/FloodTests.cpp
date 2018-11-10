@@ -1,4 +1,4 @@
-// Copyright 2015 Stellar Development Foundation and contributors. Licensed
+// Copyright 2015 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -20,7 +20,7 @@
 #include "util/Logging.h"
 #include "util/Timer.h"
 
-namespace stellar
+namespace fonero
 {
 using namespace txtest;
 
@@ -141,7 +141,7 @@ TEST_CASE("Flooding", "[flood][overlay]")
                 {createAccount(dest.getPublicKey(), txAmount)}, expectedSeq);
 
             // this is basically a modified version of Peer::recvTransaction
-            auto msg = tx1->toStellarMessage();
+            auto msg = tx1->toFoneroMessage();
             auto res = inApp->getHerder().recvTransaction(tx1);
             REQUIRE(res == Herder::TX_STATUS_PENDING);
             inApp->getOverlayManager().broadcastMessage(msg);
@@ -240,7 +240,7 @@ TEST_CASE("Flooding", "[flood][overlay]")
 
             // build an SCP nomination message for the next ledger
 
-            StellarValue sv(txSet.getContentsHash(),
+            FoneroValue sv(txSet.getContentsHash(),
                             lcl.header.scpValue.closeTime + 1,
                             emptyUpgradeSteps, 0);
 

@@ -1,4 +1,4 @@
-// Copyright 2016 Stellar Development Foundation and contributors. Licensed
+// Copyright 2016 Fonero Development Foundation and contributors. Licensed
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -7,7 +7,7 @@
 #include "main/Config.h"
 #include "test/test.h"
 
-using namespace stellar;
+using namespace fonero;
 
 namespace
 {
@@ -142,9 +142,9 @@ TEST_CASE("resolve node id", "[config]")
 TEST_CASE("load example configs", "[config]")
 {
     Config c;
-    std::vector<std::string> testFiles = {"stellar-core_example.cfg",
-                                          "stellar-core_standalone.cfg",
-                                          "stellar-core_testnet.cfg"};
+    std::vector<std::string> testFiles = {"fonero-core_example.cfg",
+                                          "fonero-core_standalone.cfg",
+                                          "fonero-core_testnet.cfg"};
     for (auto const& fn : testFiles)
     {
         std::string fnPath = "testdata/";
