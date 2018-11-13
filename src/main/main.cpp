@@ -694,7 +694,7 @@ main(int argc, char* const* argv)
     }
     xdr::marshaling_stack_limit = 1000;
 
-    std::string cfgFile("/opt/fonero/fonero-core/src/fonero-core.cfg");
+    std::string cfgFile("fonero-core.cfg");
     std::string command;
     el::Level logLevel = el::Level::Info;
     std::vector<char*> rest;
